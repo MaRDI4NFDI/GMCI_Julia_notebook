@@ -1,0 +1,105 @@
+---
+bibliography: references.bib 
+authors: # see https://quarto.org/docs/journals/authors.html for further options
+  - name: Leopold Mareis
+    orcid: 0000-0002-2624-6522
+    affiliation: "Technical University of Munich "
+    country: Germany
+engine: julia
+---
+
+# Enabling Julia in .qmd Notebooks
+
+| Resource | Information |
+|------------------------------------|------------------------------------|
+| Data DOI | NA |
+| Git + DOI | [Git](tbd) [tbd](tbd) |
+| Short Description | This notebook demonstrates the integration of the programming language Julia in quarto .qmd files. We also briefly showcase the open-source symbolic computer algebra Julia package `Oscar`. |
+
+: {.striped}
+
+## Executing Julia Code Chunks
+
+Julia is a fast, dynamic and modern programming language which is often used in scientific computing (@Julia-2017). Follow the [Julia Website](https://julialang.org/install/) to install its latest version. There is a detailed page on [quarto.org](https://quarto.org/docs/computations/julia.html) on using Julia in .qmd files. It is recommended to set `engine: julia` in the header which works with the Julia version manager `juliaup`. When quarto detects a non-R chunk in .qmd, it automatically selects a Jupyter engine. When aiming to present Julia Code, the Julia engine provides more flexibility. Specifying `{julia}` in the chunk head, triggers the Julia execution.
+
+```{julia}
+# this is a Julia chunk
+1 + 2
+```
+
+## Using R and Python within the Julia Engine
+
+To call multiple languages in a single .qmd file with a julia engine, one has to specify the appropriate R and / or Python wrappers. When solely using R and Python code, don't specify an engine, as then Jupyter is selected (see [quarto details](https://quarto.org/docs/computations/execution-options.html#engine-binding)).
+
+```{julia}
+#| output: false
+# this is a Julia chunk
+using Pkg 
+Pkg.add("RCall")
+Pkg.add("PythonCall")
+using RCall
+using PythonCall
+```
+
+```{r}
+# this is an R chunk
+1 * pi
+```
+
+```{python}
+# this is a Python chunk
+import math
+math.sqrt(16)
+```
+
+## Example: Using the Julia *Oscar* Package
+
+To use Julia packages in .qmd code chunks, install them with `Using Pkg` and `Pkg.add("package")`, and load. We briefly showcase the open-source symbolic computer algebra Julia package `Oscar`, which is especially relevant for mathematicians (@OSCAR, @OSCAR-book). In particular, it supports the identification of statistical models and estimators.
+
+```{julia}
+#| output: false
+Pkg.add("Graphviz_jll")
+Pkg.add("Oscar")
+using Graphviz_jll
+using Oscar
+```
+
+```{julia}
+# this is a julia chunk
+Qx, x = polynomial_ring(QQ, [:x1,:x2])
+R = grade(Qx, [1,2])[1]
+f = R(x[1]^2+x[2])
+println("The degree of the function f is ", degree(f), ".")
+```
+
+`Oscar` is actively developed and publicly funded. For more information, visit their [website](https://docs.oscar-system.org/stable/). Finally, we show how the graph of the 3-simplex can be created and plotted with Oscar.
+
+```{julia}
+#| output: false
+G = vertex_edge_graph(simplex(5))
+visualize(G; backend=:graphviz, filename="notebook_files/julia_graph.dot")
+run(`dot -Tpng -Gdpi=600 notebook_files/julia_graph.dot -o notebook_files/graph.png`)
+```
+
+![](notebook_files/graph.png){width="500"}
+
+## Citing this Notebook {.unnumbered}
+
+Please cite our community with the following bib item.
+
+``` bibtex
+@article{Mareis_Haug_Drton_2025,
+title={MaRDI's Zenodo Community for Graphical Modeling and Causal Inference},
+volume={2},
+journal={Proceedings of the Conference on Research Data Infrastructure},
+author={Mareis, Leopold and Haug, Stephan and Drton, Mathias},
+year={2025},
+month={Sep.}
+}
+```
+
+## Additional Information {.unnumbered}
+
+**License Information:** Please follow the above DOI for license information of data and code.
+
+**Contact:** If you have suggestions, feel free to [create an issue](tbd) or contact the community moderators (mardi'at'statistics.cit.tum.de).
