@@ -77,11 +77,11 @@ println("The degree of the function f is ", degree(f), ".")
 ```{julia}
 #| output: false
 G = vertex_edge_graph(simplex(5))
-visualize(G; backend=:graphviz, filename="notebook_files/julia_graph.dot")
-run(`dot -Tpng -Gdpi=600 notebook_files/julia_graph.dot -o notebook_files/graph.png`)
+visualize(G; backend=:graphviz, filename="files/julia_graph.dot")
+run(`dot -Tpng -Gdpi=600 files/julia_graph.dot -o files/graph.png`)
 ```
 
-![](notebook_files/graph.png){width="500"}
+![](files/graph.png){width="500"}
 
 ## Citing this Notebook {.unnumbered}
 
