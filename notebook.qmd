@@ -13,7 +13,7 @@ engine: julia
 | Resource | Information |
 |------------------------------------|------------------------------------|
 | Data DOI | NA |
-| Git + DOI | [Git](tbd) [tbd](tbd) |
+| Git + DOI | [Git](https://github.com/MaRDI4NFDI/GMCI_Julia_notebook.git) [tbd](tbd) |
 | Short Description | This notebook demonstrates the integration of the programming language Julia in quarto .qmd files. We also briefly showcase the open-source symbolic computer algebra Julia package `Oscar`. |
 
 : {.striped}
